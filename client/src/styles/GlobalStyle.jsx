@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Spoqa Han Sans Neo', sans-serif;
   }
   a {
     text-decoration: none;
@@ -20,7 +20,7 @@ const GlobalStyles = createGlobalStyle`
     border: none;
     outline: none;
   }
-  
+
   button {
     cursor: pointer;
   }
