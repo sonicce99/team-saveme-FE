@@ -15,7 +15,7 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BsCheckCircle } from "react-icons/bs";
 import { searchResultApi } from "../utils/Api.js";
 
-const SearchBar = ({ setDatafnc }) => {
+const SearchBar = () => {
   const local1 = ["서울", "인천", "대구", "대전", "세종", "경남"];
   const local2 = ["경기", "부산", "광주", "울산", "강원", "경북"];
 
@@ -41,7 +41,6 @@ const SearchBar = ({ setDatafnc }) => {
   const getResult = async () => {
     const res = await searchResultApi(value, selected);
     console.log(res);
-    setDatafnc(res);
   };
 
   const navigate = useNavigate();

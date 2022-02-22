@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 import SearchBar from "./SearchBar";
 import SearchResult from "./SearchResult";
 
 const Search = () => {
-  const [data, setData] = useState([]);
-
   return (
     <Container>
       <Div>
         <Image src={logo} />
-        <SearchBar setDatafnc={setData} />
+        <SearchBar />
       </Div>
       <SearchResult />
     </Container>
