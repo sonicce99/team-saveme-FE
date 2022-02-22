@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CompareWrapper,
   Header,
@@ -12,11 +12,20 @@ import {
   CompareHeaderWrapper,
   CompareFlex,
   CategoryBtn,
+  Text,
+  Div,
 } from "../../styles/CompareStyle";
 import theme from "../../styles/theme";
 import { categoryList } from "../../utils/categoryList";
+import ModalShow from "./ModalShow";
+import { AiFillPlusCircle } from "react-icons/ai";
 
 export default function Compare() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <>
       <Header>
@@ -56,7 +65,10 @@ export default function Compare() {
 
       <CompareWrapper>
         <Rows repeatNum={5 + 1}>
-          <Row>+</Row>
+          <Div onClick={handleShow}>
+            <AiFillPlusCircle className="PlusIcon" />
+            <Text>공고 추가</Text>
+          </Div>
           <Row>SBS아이앤엠 플랫폼서비스팀 UX/UI디자인 채용 [DMC/경력우대]</Row>
           <Row>UX/UI 웹 서비스 기획 및 디자인 담당자 채용</Row>
           <Row>웹페이지 및 앱 UX/UI 디자인</Row>
@@ -73,6 +85,7 @@ export default function Compare() {
           <Row>3</Row>
         </Rows>
       </CompareWrapper>
+      <ModalShow show={show} handleClose={handleClose} />
     </>
   );
 }
