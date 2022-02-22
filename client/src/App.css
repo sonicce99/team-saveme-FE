@@ -65,3 +65,10 @@
   margin-left: -35px;
   color: #d8dce4;
 }
+
+.PlusIcon {
+  width: 54px;
+  height: 54px;
+  color: #4876ef;
+  cursor: pointer;
+}
