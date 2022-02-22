@@ -11,20 +11,31 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css";
 import styled from "styled-components";
 import { BiSearch } from "react-icons/bi";
-import { GrLocation } from "react-icons/gr";
+import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BsCheckCircle } from "react-icons/bs";
 
-const SearchBar = ({ main }) => {
+const SearchBar = () => {
   const local1 = ["서울", "인천", "대구", "대전", "세종", "경남"];
   const local2 = ["경기", "부산", "광주", "울산", "강원", "경북"];
 
   const [show, setShow] = useState(false);
   const [value, setValue] = useState("");
+  const [selected, setSelected] = useState([]);
 
   const handleTrue = () => setShow(true);
   const handleFalse = () => setShow(false);
   const handleValue = (e) => setValue(e.target.value);
   const handleValueNull = () => setValue("");
+  const handleSelect = (e) => {
+    if (selected.includes(e)) {
+      const index = selected.indexOf(e);
+      const array = [...selected];
+      array.splice(index, 1);
+      setSelected(array);
+    } else {
+      setSelected([...selected, e]);
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -40,11 +51,14 @@ const SearchBar = ({ main }) => {
             value={value}
             onChange={handleValue}
           />
-          <GrLocation className="LocationIcon" />
+          <HiOutlineLocationMarker className="LocationIcon" />
           <DropdownButton
             variant="outline-secondary"
-            title="지역을 선택해주세요"
+            title={
+              selected.length === 0 ? "지역을 선택해주세요" : selected.join()
+            }
             id="input-group-dropdown-1"
+            onSelect={handleSelect}
           >
             <Box style={{ width: 410, height: 220 }}>
               <Div>
@@ -52,15 +66,24 @@ const SearchBar = ({ main }) => {
                   return (
                     <Box key={index}>
                       <Dropdown.Item
-                        href="#"
+                        eventKey={local}
                         style={{
                           width: 202,
                           height: 34,
+                          color: selected.includes(local)
+                            ? "#4876EF"
+                            : "#333333",
+                          backgroundColor: selected.includes(local)
+                            ? "#F4F6FA"
+                            : "#ffffff",
                         }}
                       >
                         {local}
                       </Dropdown.Item>
-                      <BsCheckCircle className="CheckIcon" />
+                      <BsCheckCircle
+                        className="CheckIcon"
+                        color={selected.includes(local) ? "#4876EF" : "#D8DCE4"}
+                      />
                     </Box>
                   );
                 })}
@@ -70,15 +93,24 @@ const SearchBar = ({ main }) => {
                   return (
                     <Box key={index}>
                       <Dropdown.Item
-                        href="#"
+                        eventKey={local}
                         style={{
                           width: 202,
                           height: 34,
+                          color: selected.includes(local)
+                            ? "#4876EF"
+                            : "#333333",
+                          backgroundColor: selected.includes(local)
+                            ? "#F4F6FA"
+                            : "#ffffff",
                         }}
                       >
                         {local}
                       </Dropdown.Item>
-                      <BsCheckCircle className="CheckIcon" />
+                      <BsCheckCircle
+                        className="CheckIcon"
+                        color={selected.includes(local) ? "#4876EF" : "#D8DCE4"}
+                      />
                     </Box>
                   );
                 })}
@@ -103,12 +135,7 @@ const SearchBar = ({ main }) => {
 };
 
 const Container = styled.div`
-  width: 995px;
-  position: relative;
-  left: 50%;
-  margin-left: -497.5px;
-
-  ${(props) => (props.main ? `margin-top: 60px;` : `margin-top: 40px;`)}
+  width: 1025px;
 `;
 
 const Div = styled.div``;
