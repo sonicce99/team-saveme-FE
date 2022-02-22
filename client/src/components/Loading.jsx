@@ -7,6 +7,7 @@ const LoadingDiv = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  margin: calc(100% - 50%) auto;
 `;
 
 const loadingContainerVariants = {

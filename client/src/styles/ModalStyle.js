@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const Modal = styled.aside`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: #333;
   position: absolute;
   top: 0;
   left: -100%;
-  z-index: 2;
+  z-index: 10;
   opacity: 0;
 
   &.on {
@@ -20,10 +20,7 @@ export const ModalWrapper = styled.div`
   width: 1200px;
   height: 880px;
   margin: 0 auto;
-  margin-top: 30px;
   background: #fff;
-  padding: 40px;
-  border-radius: 12px;
 `;
 
 export const ModalHeader = styled.div`
@@ -33,19 +30,22 @@ export const ModalHeader = styled.div`
   align-items: center;
   font-size: 24px;
   line-height: 38px;
+  padding: 40px;
 `;
 
 export const IconWrapper = styled.div`
   cursor: pointer;
 `;
 
-export const ModalRowWrapper = styled.div``;
+export const ModalRowWrapper = styled.div`
+  border: 1px solid #0d6efd;
+`;
 
 export const ModalRows = styled.div`
   display: grid;
   height: 145px;
-  border: 1px solid #0d6efd;
   grid-template-columns: repeat(3, auto);
+  margin-left: 40px;
 `;
 
 export const ModalRow = styled.div`
@@ -54,10 +54,10 @@ export const ModalRow = styled.div`
     width: 660px;
   }
   &:nth-of-type(2) {
-    width: 280px;
+    width: 300px;
   }
   &:nth-of-type(3) {
-    width: 180px;
+    width: 198px;
     cursor: pointer;
   }
 `;

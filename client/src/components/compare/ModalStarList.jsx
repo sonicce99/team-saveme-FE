@@ -1,9 +1,8 @@
-import React, { useCallback } from "react";
+import React from "react";
 import theme from "../../styles/theme";
 import {
   BsCheckWrapper,
   IconWrapper,
-  Modal,
   ModalHeader,
   ModalRow,
   ModalRows,
@@ -18,18 +17,15 @@ import {
 } from "../../styles/ModalStyle";
 import { IoMdClose } from "react-icons/io";
 import { BsCheckCircle } from "react-icons/bs";
+import { Modal } from "react-bootstrap";
 
-export default function ModalShow() {
-  const modalClose = useCallback(() => {
-    const aside = document.querySelector("aside");
-    aside.classList.remove("on");
-  }, []);
+export default function ModalStarList({ show, handleClose }) {
   return (
-    <Modal>
+    <Modal show={show} onHide={handleClose} size="xl">
       <ModalWrapper>
         <ModalHeader>
           <span>관심공고</span>
-          <IconWrapper onClick={modalClose}>
+          <IconWrapper onClick={handleClose}>
             <IoMdClose size="40" />
           </IconWrapper>
         </ModalHeader>
@@ -57,7 +53,8 @@ export default function ModalShow() {
               </RowCheckBox>
             </ModalRow>
           </ModalRows>
-
+        </ModalRowWrapper>
+        <ModalRowWrapper>
           <ModalRows>
             <ModalRow>
               <RowTitle>SBS알ㄴ으ㅏㅇ르ㅏ늘다ㅡ</RowTitle>
