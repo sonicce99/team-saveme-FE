@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import {
   CompareWrapper,
   Header,
@@ -21,15 +21,16 @@ import theme from "../../styles/theme";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { compareBtnClickList } from "../../recoil/atom";
-import ModalShow from "./ModalShow";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useGetStarData } from "../../utils/Api";
 import Loading from "../Loading";
+import ModalShow from "./ModalShow";
 
 export default function Compare() {
-  const { isLoading, data: starData } = useGetStarData();
+  // const { isLoading, data: starData } = useGetStarData();
   const [categoryAtom, setCategoryAtom] = useRecoilState(compareBtnClickList);
-  console.log(starData);
+  // console.log(starData);
+  const isLoading = false;
 
   const btnClick = useCallback((keyName, keyState, keyKoName) => {
     setCategoryAtom((oldCategory) => {
@@ -49,9 +50,10 @@ export default function Compare() {
     slide.classList.toggle("slideOut");
   }, []);
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const modalShow = useCallback(() => {
+    const aside = document.querySelector("aside");
+    aside.classList.add("on");
+  }, []);
 
   return (
     <>
@@ -106,6 +108,13 @@ export default function Compare() {
         <Loading />
       ) : (
         <CompareWrapper>
+          <Row>
+            <PlusBtnWrapper>
+              <AiFillPlusCircle className="PlusIcon" onClick={modalShow} />
+            </PlusBtnWrapper>
+            <Text>공고 추가</Text>
+          </Row>
+          {/*
           <Rows repeatNum={starData.data.length + 1}>
             <Row>
               <PlusBtnWrapper>
@@ -135,10 +144,10 @@ export default function Compare() {
               ))}
             </Rows>
           ))}
+        */}
         </CompareWrapper>
       )}
-
-      <ModalShow show={show} handleClose={handleClose} />
+      <ModalShow />
     </>
   );
 }

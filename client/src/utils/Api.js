@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 export const QUERY_KEYS = {
-  all: ["stories"],
+  all: ["saramin"],
   lists: () => [...QUERY_KEYS.all, "list"],
   list: (filters) => [...QUERY_KEYS.lists(), { filters }],
   details: () => [...QUERY_KEYS.all, "detail"],
