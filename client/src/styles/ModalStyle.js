@@ -21,6 +21,19 @@ export const ModalWrapper = styled.div`
   height: 880px;
   margin: 0 auto;
   background: #fff;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 30px;
+    background-color: #2c3034;
+  }
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
 `;
 
 export const ModalHeader = styled.div`
@@ -38,7 +51,7 @@ export const IconWrapper = styled.div`
 `;
 
 export const ModalRowWrapper = styled.div`
-  border: 1px solid #0d6efd;
+  border: 1px solid ${(props) => props.color};
 `;
 
 export const ModalRows = styled.div`
