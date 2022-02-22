@@ -135,3 +135,18 @@ export const Row = styled.div`
     position: sticky;
   }
 `;
+
+export const Div = styled.div`
+  border: 1px solid black;
+`;
+
+export const Text = styled.p`
+  width: 71px;
+  height: 28px;
+  font-style: normal;
+  font-weight: ${({ theme }) => theme.fontWeights.weightNormal};
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -0.0025em;
+  color: ${({ theme }) => theme.colors.colorBlue};
+`;
