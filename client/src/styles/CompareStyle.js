@@ -155,8 +155,6 @@ export const DeleteBtn = styled.div`
 
 export const MemoBtn = styled.div`
   position: absolute;
-  width: 30px;
-  height: 30px;
   bottom: 10px;
   right: 3px;
   color: #4876ef;

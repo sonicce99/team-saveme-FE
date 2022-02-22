@@ -30,6 +30,7 @@ import ModalStarList from "./ModalStarList";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { BiMemoryCard } from "react-icons/bi";
 import { Toast, Col } from "react-bootstrap";
+import { OverlayTrigger, Popover, Button } from "react-bootstrap";
 
 export default function Compare() {
   const { isLoading, data: starData } = useGetStarData();
@@ -67,6 +68,16 @@ export default function Compare() {
   const handleShow = useCallback(() => {
     setShow(true);
   }, []);
+
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Header as="h3">Popover right</Popover.Header>
+      <Popover.Body>
+        And here's some <strong>amazing</strong> content. It's very engaging.
+        right?
+      </Popover.Body>
+    </Popover>
+  );
 
   return (
     <>
@@ -156,7 +167,16 @@ export default function Compare() {
                         <IoIosCloseCircleOutline />
                       </DeleteBtn>
                       <MemoBtn>
-                        <BiMemoryCard />
+                        <OverlayTrigger
+                          trigger="click"
+                          placement="right"
+                          overlay={popover}
+                        >
+                          {/* <BiMemoryCard /> */}
+                          <Button variant="light" size="sm">
+                            Memo
+                          </Button>
+                        </OverlayTrigger>
                       </MemoBtn>
                     </Row>
                   ))}
