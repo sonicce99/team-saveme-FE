@@ -38,8 +38,8 @@ const SearchBar = () => {
     }
   };
 
-  const getResult = () => {
-    const res = searchResultApi(value, selected);
+  const getResult = async () => {
+    const res = await searchResultApi(value, selected);
     console.log(res);
   };
 

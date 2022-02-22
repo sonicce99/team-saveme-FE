@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/team-saveme-FE/static/css/main.a203254f.css",
+    "main.js": "/team-saveme-FE/static/js/main.318b560e.js",
+    "static/media/logo.png": "/team-saveme-FE/static/media/logo.120b1265bbfe194f2fd2.png",
+    "index.html": "/team-saveme-FE/index.html",
+    "main.a203254f.css.map": "/team-saveme-FE/static/css/main.a203254f.css.map",
+    "main.318b560e.js.map": "/team-saveme-FE/static/js/main.318b560e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a203254f.css",
+    "static/js/main.318b560e.js"
+  ]
+}

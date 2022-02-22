@@ -1,5 +1,5 @@
-import { axiosInstance } from "../utils/TokenApi.jsx";
-import { UseTransfer } from "../hooks/UseTransfer.js";
+import { axiosInstance } from "./TokenApi";
+import { LocationNumber } from "../hooks/UseTransfer.js";
 import { useQuery } from "react-query";
 import axios from "axios";
 
@@ -12,13 +12,11 @@ export const QUERY_KEYS = {
 };
 
 export const searchResultApi = async (value, selected) => {
-  try {
-    const LocationString = UseTransfer(selected.join());
-    const data = await axiosInstance.get("/api/users/me");
-    return data;
-  } catch (error) {
-    return Error;
-  }
+  const LocationString = LocationNumber(selected).join();
+  const data = await axiosInstance.get(
+    `/api/jobs/list?start=${0}&keywords=${value}&loc_cd=${LocationString}&count=10`
+  );
+  return data.data.data;
 };
 
 /* 임시 */

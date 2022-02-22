@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 import SearchBar from "./SearchBar";
