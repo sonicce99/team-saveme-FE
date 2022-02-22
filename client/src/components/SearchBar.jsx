@@ -13,6 +13,7 @@ import styled from "styled-components";
 import { BiSearch } from "react-icons/bi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BsCheckCircle } from "react-icons/bs";
+import { searchResultApi } from "../utils/Api.js";
 
 const SearchBar = () => {
   const local1 = ["서울", "인천", "대구", "대전", "세종", "경남"];
@@ -35,6 +36,11 @@ const SearchBar = () => {
     } else {
       setSelected([...selected, e]);
     }
+  };
+
+  const getResult = () => {
+    const res = searchResultApi(value, selected);
+    console.log(res);
   };
 
   const navigate = useNavigate();
@@ -121,6 +127,7 @@ const SearchBar = () => {
             variant="outline-secondary"
             id="button-addon2"
             onClick={() => {
+              getResult();
               handleFalse();
               handleValueNull();
               navigate("/search");
