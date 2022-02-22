@@ -1,6 +1,6 @@
 /* 검색어 입력 */
 .form-control {
-  width: 410px;
+  width: 420px;
   height: 50px;
   padding-left: 40px;
   background: #ffffff;
@@ -14,7 +14,7 @@
 }
 
 #input-group-dropdown-1 {
-  width: 410px;
+  width: 420px;
   height: 50px;
   background: #ffffff;
   border: 1px solid #d8dce4;
@@ -34,7 +34,7 @@
 }
 
 #button-addon2 {
-  width: 175px;
+  width: 185px;
   background-color: #4876ef;
   color: #ffffff;
 }
@@ -55,7 +55,7 @@
   width: 24px;
   height: 24px;
   top: 13px;
-  left: 420px;
+  left: 436px;
   color: #d8dce4;
   z-index: 999;
   cursor: pointer;
