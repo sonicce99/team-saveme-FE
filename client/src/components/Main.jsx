@@ -6,12 +6,16 @@ import SearchResult from "./SearchResult";
 
 const Main = () => {
   const [data, setData] = useState([]);
+  const [page, setPage] = useState(0);
+
   return (
     <>
       <Image src={logo} alt="logoImage" />
       <Container>
-        <SearchBar setData={setData} />
-        {data.length === 0 ? null : <SearchResult data={data} />}
+        <SearchBar setData={setData} page={page} data={data} />
+        {data.length === 0 ? null : (
+          <SearchResult page={page} setPage={setPage} data={data} />
+        )}
       </Container>
     </>
   );

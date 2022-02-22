@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   InputGroup,
@@ -14,7 +14,7 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BsCheckCircle } from "react-icons/bs";
 import { searchResultApi } from "../utils/Api.js";
 
-const SearchBar = ({ setData }) => {
+const SearchBar = ({ setData, page, data }) => {
   const local1 = ["서울", "인천", "대구", "대전", "세종", "경남"];
   const local2 = ["경기", "부산", "광주", "울산", "강원", "경북"];
 
@@ -37,8 +37,15 @@ const SearchBar = ({ setData }) => {
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      const res = await searchResultApi(value, selected, page);
+      setData([...data, ...res]);
+    })();
+  }, [page]);
+
   const getResult = async () => {
-    const res = await searchResultApi(value, selected);
+    const res = await searchResultApi(value, selected, page);
     setData(res);
   };
 
