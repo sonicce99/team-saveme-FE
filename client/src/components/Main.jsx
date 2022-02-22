@@ -7,16 +7,27 @@ const Main = () => {
   return (
     <>
       <Image src={logo} alt="logoImage" />
-      <SearchBar main />
+      <Container>
+        <SearchBar />
+      </Container>
     </>
   );
 };
+
+const Container = styled.div`
+  width: 1025px;
+  margin-top: 60px;
+  position: relative;
+  left: 50%;
+  margin-left: -497.5px;
+`;
 
 const Image = styled.img`
   width: 278px;
   height: 54px;
   margin-top: 100px;
   margin-left: 220px;
+  cursor: pointer;
 `;
 
 export default Main;
