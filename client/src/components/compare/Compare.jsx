@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import {
   CompareWrapper,
   Header,
@@ -14,13 +14,44 @@ import {
   CategoryBtn,
 } from "../../styles/CompareStyle";
 import theme from "../../styles/theme";
-import { categoryList } from "../../utils/categoryList";
+import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { compareBtnClickList } from "../../recoil/atom";
 
 export default function Compare() {
+  const [categoryAtom, setCategoryAtom] = useRecoilState(compareBtnClickList);
+
+  const btnClick = useCallback((keyName, keyState, keyKoName) => {
+    setCategoryAtom((oldCategory) => {
+      const targetIndex = oldCategory.findIndex(
+        (category) => category.keyName === keyName
+      );
+      const addCategory = {
+        keyName: keyName,
+        keyKoName: keyKoName,
+        keyState: !keyState,
+      };
+      const newCategory = [...oldCategory];
+      newCategory.splice(targetIndex, 1, addCategory);
+      return newCategory;
+      /*
+      return [
+        ...oldCategory.slice(0, targetIndex),
+        newCategory,
+        ...oldCategory.slice(targetIndex + 1),
+      ];
+      */
+    });
+    const test = document.querySelector(".test");
+    test.classList.toggle("none");
+  }, []);
+
   return (
     <>
       <Header>
-        <Logo src={require("../../images/logo.png")} alt="Logo" />
+        <Link to="/">
+          <Logo src={require("../../images/logo.png")} alt="Logo" />
+        </Link>
         <BtnWrapper>
           <FlexTitleBtn>
             <div>
@@ -45,9 +76,19 @@ export default function Compare() {
         <CompareHeaderWrapper>
           <CompareFlex color={theme.colors.colorLine}>
             <span>비교 항목 선택</span>
-            {Object.entries(categoryList).map(([key, value]) => (
-              <CategoryBtn color={theme.colors.colorBlue} key={key}>
-                {value}
+            {categoryAtom.map((data) => (
+              <CategoryBtn
+                color={
+                  data.keyState
+                    ? theme.colors.colorBlue
+                    : theme.colors.colorGray
+                }
+                key={data.keyName}
+                onClick={() =>
+                  btnClick(data.keyName, data.keyState, data.keyKoName)
+                }
+              >
+                {data.keyKoName}
               </CategoryBtn>
             ))}
           </CompareFlex>
@@ -55,7 +96,7 @@ export default function Compare() {
       </Header>
 
       <CompareWrapper>
-        <Rows repeatNum={5 + 1}>
+        <Rows repeatNum={5 + 1} className="test">
           <Row>+</Row>
           <Row>SBS아이앤엠 플랫폼서비스팀 UX/UI디자인 채용 [DMC/경력우대]</Row>
           <Row>UX/UI 웹 서비스 기획 및 디자인 담당자 채용</Row>

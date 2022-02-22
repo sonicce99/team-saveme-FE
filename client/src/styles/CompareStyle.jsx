@@ -66,7 +66,7 @@ export const CompareFlex = styled.div`
     color: #646464;
 
     &:after {
-      content: "▷";
+      content: "▶";
       margin-left: 9px;
       color: ${(props) => props.color};
     }
@@ -107,6 +107,9 @@ export const Rows = styled.div`
     Number(props.repeatNum) * rowWidth.gap -
     (rowWidth.firstWidth - rowWidth.width)}px;
 
+  max-height: 500px;
+  background: #fff;
+
   &:nth-of-type(1) {
     /*
     overflow scroll이 있는 상태라 sticky가 안먹음..
@@ -115,12 +118,17 @@ export const Rows = styled.div`
     z-index: 99;
     background: orchid;
      */
-    background: #f4f6fa;
   }
+  &.none {
+    visibility: hidden;
+    max-height: 0;
+    opacity: 0;
+  }
+  transition: all linear 0.3s;
 `;
 
 export const Row = styled.div`
-  margin: 1em 0;
+  padding: 2em 0;
   font-size: 21px;
   line-height: 2em;
   width: ${rowWidth.width}px;
@@ -133,5 +141,7 @@ export const Row = styled.div`
     width: ${rowWidth.firstWidth}px;
     position: -webkit-sticky;
     position: sticky;
+    background: #f4f6fa;
+    font-size: 18px;
   }
 `;
