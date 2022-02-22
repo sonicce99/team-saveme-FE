@@ -11,10 +11,10 @@ export const QUERY_KEYS = {
   detail: (id) => [...QUERY_KEYS.details(), id],
 };
 
-export const searchResultApi = async (value, selected) => {
+export const searchResultApi = async (value, selected, page) => {
   const LocationString = LocationNumber(selected).join();
   const data = await axiosInstance.get(
-    `/api/jobs/list?start=${0}&keywords=${value}&loc_cd=${LocationString}&count=10`
+    `/api/jobs/list?start=${page}&keywords=${value}&loc_cd=${LocationString}&count=10`
   );
   return data.data.data;
 };
@@ -35,6 +35,10 @@ export const useGetStarData = () => {
     { refetchOnWindowFocus: false }
   );
   return { isLoading, data };
+};
+
+export const wishJob = async (job) => {
+  const data = await axiosInstance.post("/api/users/wish", job);
 };
 
 // export const useGetSearchData = (value, selected) => {

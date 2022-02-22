@@ -2,43 +2,61 @@ import React from "react";
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { wishJob } from "../utils/Api.js";
 
-const SearchResult = ({ data }) => {
-  console.log(data);
+const SearchResult = ({ page, setPage, data }) => {
+  const handleScrollPage = (page) => {
+    setPage((page) => page + 1);
+  };
+
+  const wish = async (job) => {
+    const res = await wishJob(job);
+  };
+
   return (
     <Container>
       <Text>검색 결과</Text>
       <Box>
-        {data.map((job, index) => {
-          return (
-            <One key={index}>
-              <Div2>
+        <InfiniteScroll
+          dataLength={data.length}
+          next={(page) => handleScrollPage(page)}
+          hasMore={true}
+        >
+          {data.map((job, index) => {
+            return (
+              <One key={index}>
+                <Div2>
+                  <Div>
+                    <Title>{job.positionTitle}</Title>
+                    <AiFillStar
+                      className="StarIcon"
+                      onClick={() => wish(job)}
+                    />
+                  </Div>
+                  <Div>
+                    <CompanyName>{job.companyName}</CompanyName>
+                    <AiFillHeart className="HeartIcon" />
+                  </Div>
+                </Div2>
                 <Div>
-                  <Title>{job.positionTitle}</Title>
-                  <AiFillStar className="StarIcon" />
+                  <Condition>{job.experienceLevel}</Condition>
+                  <Condition>{job.requiredEducationLevel}</Condition>
+                  <Condition>{job.jobType}</Condition>
+                  <Condition>{job.locationName}</Condition>
+                  <Date>
+                    {job.expirationDate
+                      .replace(/^2022-/g, "~ ")
+                      .replace(/-/g, "/")}
+                  </Date>
                 </Div>
                 <Div>
-                  <CompanyName>{job.companyName}</CompanyName>
-                  <AiFillHeart className="HeartIcon" />
+                  <Sort>{job.industryName.replace(/·/g, ", ")}</Sort>
                 </Div>
-              </Div2>
-              <Div>
-                <Condition>{job.experienceLevel}</Condition>
-                <Condition>{job.requiredEducationLevel}</Condition>
-                <Condition>{job.jobType}</Condition>
-                <Condition>{job.locationName}</Condition>
-                <Date>
-                  {job.expirationDate
-                    .replace(/^2022-/g, "~ ")
-                    .replace(/-/g, "/")}
-                </Date>
-              </Div>
-              <Div>
-                <Sort>{job.industryName.replace(/·/g, ", ")}</Sort>
-              </Div>
-            </One>
-          );
-        })}
+              </One>
+            );
+          })}
+        </InfiniteScroll>
       </Box>
     </Container>
   );
@@ -120,7 +138,6 @@ const Condition = styled.p`
   letter-spacing: -0.0025em;
   color: #646464;
   flex: none;
-  order: 2;
   flex-grow: 0;
   margin: 0 4px;
   margin-bottom: 16px;
@@ -134,9 +151,9 @@ const Date = styled.p`
   letter-spacing: -0.0025em;
   color: #646464;
   flex: none;
-  order: 1;
   flex-grow: 0;
   margin: 0px 12px;
+  margin-bottom: 16px;
 `;
 
 const Sort = styled.div`
