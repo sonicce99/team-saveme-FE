@@ -1,0 +1,67 @@
+/* 검색어 입력 */
+.form-control {
+  width: 420px;
+  height: 50px;
+  padding-left: 40px;
+  background: #ffffff;
+  border: 1px solid #d8dce4;
+  border-radius: 12px 0px 0px 12px;
+}
+
+.input-group .form-control:focus {
+  box-shadow: none;
+  border: 2px solid #4876ef;
+}
+
+#input-group-dropdown-1 {
+  width: 420px;
+  height: 50px;
+  background: #ffffff;
+  border: 1px solid #d8dce4;
+}
+
+#input-group-dropdown-1:focus {
+  box-shadow: none;
+  border: 2px solid #4876ef;
+}
+
+.dropdown-menu {
+  padding: 0;
+}
+
+.dropdown-item {
+  padding: 6px 0 6px 24px;
+}
+
+#button-addon2 {
+  width: 185px;
+  background-color: #4876ef;
+  color: #ffffff;
+}
+
+.SearchIcon {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 13px;
+  left: 16px;
+  z-index: 999;
+  color: #8691a5;
+  cursor: pointer;
+}
+
+.LocationIcon {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 13px;
+  left: 436px;
+  color: #d8dce4;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.CheckIcon {
+  margin-left: -35px;
+  color: #d8dce4;
+}
