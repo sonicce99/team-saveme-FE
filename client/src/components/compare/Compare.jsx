@@ -29,6 +29,7 @@ import Loading from "../Loading";
 import ModalStarList from "./ModalStarList";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { BiMemoryCard } from "react-icons/bi";
+import { Toast, Col } from "react-bootstrap";
 
 export default function Compare() {
   const { isLoading, data: starData } = useGetStarData();

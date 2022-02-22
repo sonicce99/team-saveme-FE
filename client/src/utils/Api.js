@@ -22,9 +22,7 @@ export const searchResultApi = async (value, selected, page) => {
 /* 임시 */
 const fetchStarData = () => {
   return axios
-    .get(
-      "https://183.99.247.17:8881/api/jobs/list?start=0&keywords=백엔&loc_cd=101000&count=5"
-    )
+    .get("/api/jobs/list?start=0&keywords=백엔&loc_cd=101000&count=5")
     .then((value) => value.data);
 };
 
