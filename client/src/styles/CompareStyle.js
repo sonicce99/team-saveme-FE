@@ -92,6 +92,7 @@ export const CompareWrapper = styled.div`
   border: 1.5px solid #d8dce4;
   border-radius: 12px;
   overflow-x: auto;
+  min-height: 30vh;
 `;
 
 export const Rows = styled.div`
@@ -108,7 +109,8 @@ export const Rows = styled.div`
 
   max-height: 500px;
   background: #fff;
-  border-bottom: 0.1px solid lightgray;
+  border-bottom: ${(props) =>
+    props.bottom ? "0.1px solid lightgray" : "none"};
 
   &:nth-of-type(1) {
     /*
@@ -118,6 +120,7 @@ export const Rows = styled.div`
     z-index: 99;
     background: orchid;
      */
+    background: #f4f6fa;
   }
   &.slideOut {
     visibility: hidden;
@@ -140,7 +143,28 @@ export const PositionTitle = styled.span`
   color: #333;
 `;
 
+export const DeleteBtn = styled.div`
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 5px;
+  right: 3px;
+  color: #bec3cc;
+  cursor: pointer;
+`;
+
+export const MemoBtn = styled.div`
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  bottom: 10px;
+  right: 3px;
+  color: #4876ef;
+  cursor: pointer;
+`;
+
 export const Row = styled.div`
+  position: relative;
   padding: 2em 0;
   font-size: 21px;
   line-height: 2em;
@@ -152,11 +176,14 @@ export const Row = styled.div`
 
   &:nth-child(1) {
     left: 0;
+    z-index: 3;
     width: ${rowWidth.firstWidth}px;
     position: -webkit-sticky;
     position: sticky;
-    background: #f4f6fa;
     font-size: 18px;
+    background: ${(props) => (props.right ? "#f4f6fa" : "none")};
+    border-right: ${(props) =>
+      props.right ? "0.1px solid lightgray" : "none"};
   }
 `;
 

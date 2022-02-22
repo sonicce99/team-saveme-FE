@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   CompareWrapper,
   Header,
@@ -16,20 +16,23 @@ import {
   PlusBtnWrapper,
   CompanyName,
   PositionTitle,
+  DeleteBtn,
+  MemoBtn,
 } from "../../styles/CompareStyle";
 import theme from "../../styles/theme";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { compareBtnClickList } from "../../recoil/atom";
-import ModalShow from "./ModalShow";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useGetStarData } from "../../utils/Api";
 import Loading from "../Loading";
+import ModalStarList from "./ModalStarList";
+import { IoIosCloseCircleOutline } from "react-icons/io";
+import { BiMemoryCard } from "react-icons/bi";
 
 export default function Compare() {
   const { isLoading, data: starData } = useGetStarData();
   const [categoryAtom, setCategoryAtom] = useRecoilState(compareBtnClickList);
-  console.log(starData);
 
   const btnClick = useCallback((keyName, keyState, keyKoName) => {
     setCategoryAtom((oldCategory) => {
@@ -49,9 +52,20 @@ export default function Compare() {
     slide.classList.toggle("slideOut");
   }, []);
 
+  const modalShow = useCallback(() => {
+    const aside = document.querySelector("aside");
+    aside.classList.add("on");
+  }, []);
+
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+  const handleClose = useCallback(() => {
+    setShow(false);
+  }, []);
+
+  const handleShow = useCallback(() => {
+    setShow(true);
+  }, []);
 
   return (
     <>
@@ -102,43 +116,71 @@ export default function Compare() {
         </CompareHeaderWrapper>
       </Header>
 
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <CompareWrapper>
-          <Rows repeatNum={starData.data.length + 1}>
-            <Row>
-              <PlusBtnWrapper>
-                <AiFillPlusCircle className="PlusIcon" onClick={handleShow} />
-              </PlusBtnWrapper>
-              <Text>공고 추가</Text>
-            </Row>
-            {starData.data.map((data) => (
-              <Row key={data.recruitmentId}>
-                <CompanyName color={theme.colors.colorBlue}>
-                  {data.companyName}
-                </CompanyName>
-                <PositionTitle>{data.positionTitle}</PositionTitle>
-              </Row>
-            ))}
-          </Rows>
-
-          {categoryAtom.map((data) => (
-            <Rows
-              repeatNum={starData.data.length + 1}
-              key={data.keyName}
-              className={data.keyName}
-            >
-              <Row>{data.keyKoName}</Row>
-              {starData.data.map((subData) => (
-                <Row key={subData.recruitmentId}>{subData[data.keyName]}</Row>
-              ))}
-            </Rows>
-          ))}
-        </CompareWrapper>
-      )}
-
-      <ModalShow show={show} handleClose={handleClose} />
+      <CompareWrapper>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            {starData.data.length === 0 ? (
+              <Rows repeatNum={1} bottom={false}>
+                <Row right={false}>
+                  <PlusBtnWrapper>
+                    <AiFillPlusCircle
+                      className="PlusIcon"
+                      onClick={handleShow}
+                    />
+                  </PlusBtnWrapper>
+                  <Text>공고 추가</Text>
+                </Row>
+              </Rows>
+            ) : (
+              <>
+                <Rows repeatNum={starData.data.length + 1} bottom={true}>
+                  <Row right={true}>
+                    <PlusBtnWrapper>
+                      <AiFillPlusCircle
+                        className="PlusIcon"
+                        onClick={handleShow}
+                      />
+                    </PlusBtnWrapper>
+                    <Text>공고 추가</Text>
+                  </Row>
+                  {starData.data.map((data) => (
+                    <Row key={data.recruitmentId}>
+                      <CompanyName color={theme.colors.colorBlue}>
+                        {data.companyName}
+                      </CompanyName>
+                      <PositionTitle>{data.positionTitle}</PositionTitle>
+                      <DeleteBtn>
+                        <IoIosCloseCircleOutline />
+                      </DeleteBtn>
+                      <MemoBtn>
+                        <BiMemoryCard />
+                      </MemoBtn>
+                    </Row>
+                  ))}
+                </Rows>
+                {categoryAtom.map((data) => (
+                  <Rows
+                    repeatNum={starData.data.length + 1}
+                    key={data.keyName}
+                    className={data.keyName}
+                    bottom={true}
+                  >
+                    <Row right={true}>{data.keyKoName}</Row>
+                    {starData.data.map((subData) => (
+                      <Row key={subData.recruitmentId}>
+                        {subData[data.keyName]}
+                      </Row>
+                    ))}
+                  </Rows>
+                ))}{" "}
+              </>
+            )}
+          </>
+        )}
+      </CompareWrapper>
+      <ModalStarList show={show} handleClose={handleClose} />
     </>
   );
 }
