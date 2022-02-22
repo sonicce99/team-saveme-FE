@@ -66,7 +66,7 @@ export const CompareFlex = styled.div`
     color: #646464;
 
     &:after {
-      content: "▷";
+      content: "▶";
       margin-left: 9px;
       color: ${(props) => props.color};
     }
@@ -87,9 +87,8 @@ export const CategoryBtn = styled.button`
 `;
 
 export const CompareWrapper = styled.div`
-  margin: 0 auto;
+  margin: 20px auto;
   width: 1200px;
-  height: 200vh; // 임시
   border: 1.5px solid #d8dce4;
   border-radius: 12px;
   overflow-x: auto;
@@ -107,6 +106,10 @@ export const Rows = styled.div`
     Number(props.repeatNum) * rowWidth.gap -
     (rowWidth.firstWidth - rowWidth.width)}px;
 
+  max-height: 500px;
+  background: #fff;
+  border-bottom: 0.1px solid lightgray;
+
   &:nth-of-type(1) {
     /*
     overflow scroll이 있는 상태라 sticky가 안먹음..
@@ -115,16 +118,35 @@ export const Rows = styled.div`
     z-index: 99;
     background: orchid;
      */
-    background: #f4f6fa;
   }
+  &.slideOut {
+    visibility: hidden;
+    max-height: 0;
+    opacity: 0;
+  }
+  transition: all linear 0.3s;
+`;
+
+export const CompanyName = styled.span`
+  display: block;
+  font-size: 18px;
+  color: ${(props) => props.color};
+`;
+
+export const PositionTitle = styled.span`
+  display: block;
+  font-size: 21px;
+  line-height: 36px;
+  color: #333;
 `;
 
 export const Row = styled.div`
-  margin: 1em 0;
+  padding: 2em 0;
   font-size: 21px;
   line-height: 2em;
   width: ${rowWidth.width}px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 
@@ -133,11 +155,13 @@ export const Row = styled.div`
     width: ${rowWidth.firstWidth}px;
     position: -webkit-sticky;
     position: sticky;
+    background: #f4f6fa;
+    font-size: 18px;
   }
 `;
 
-export const Div = styled.div`
-  border: 1px solid black;
+export const PlusBtnWrapper = styled.div`
+  width: 100%;
 `;
 
 export const Text = styled.p`
