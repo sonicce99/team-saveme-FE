@@ -55,24 +55,22 @@ export default function Compare() {
       </Header>
 
       <CompareWrapper>
-        <Rows repeatNum={5}>
-          <Row>1</Row>
-          <Row>
-            222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
-          </Row>
+        <Rows repeatNum={5 + 1}>
+          <Row>+</Row>
+          <Row>SBS아이앤엠 플랫폼서비스팀 UX/UI디자인 채용 [DMC/경력우대]</Row>
+          <Row>UX/UI 웹 서비스 기획 및 디자인 담당자 채용</Row>
+          <Row>웹페이지 및 앱 UX/UI 디자인</Row>
           <Row>3</Row>
-          <Row>4</Row>
-          <Row>5</Row>
+          <Row>3</Row>
         </Rows>
 
-        <Rows repeatNum={5}>
+        <Rows repeatNum={5 + 1}>
+          <Row>마감일</Row>
           <Row>1</Row>
-          <Row>
-            222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
-          </Row>
+          <Row>2</Row>
           <Row>3</Row>
-          <Row>4</Row>
-          <Row>5</Row>
+          <Row>3</Row>
+          <Row>3</Row>
         </Rows>
       </CompareWrapper>
     </>

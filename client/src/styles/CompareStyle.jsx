@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 const rowWidth = {
-  width: 382,
-  gap: 27,
+  firstWidth: 192,
+  width: 271,
+  gap: 8,
 };
 
 export const Header = styled.div`
@@ -80,45 +81,57 @@ export const CategoryBtn = styled.button`
   margin: 0 4px;
   padding: 0 10px;
   color: ${(props) => props.color};
+  &:nth-of-type(1) {
+    margin-left: 8px;
+  }
 `;
 
 export const CompareWrapper = styled.div`
   margin: 0 auto;
   width: 1200px;
   height: 200vh; // 임시
-  border: 1px solid tomato;
+  border: 1.5px solid #d8dce4;
+  border-radius: 12px;
   overflow-x: auto;
 `;
 
 export const Rows = styled.div`
-  margin: 3rem 0;
   position: relative;
   display: grid;
+  text-align: center;
+  font-size: 18px;
   grid-gap: ${rowWidth.gap}px;
-  grid-template-columns: repeat(${(props) => props.repeatNum}, 1fr);
-  background-color: gainsboro;
+  grid-template-columns: repeat(${(props) => props.repeatNum}, auto);
   width: ${(props) =>
     Number(props.repeatNum) * rowWidth.width +
-    Number(props.repeatNum) * rowWidth.gap}px;
+    Number(props.repeatNum) * rowWidth.gap -
+    (rowWidth.firstWidth - rowWidth.width)}px;
 
-  &:first-child {
+  &:nth-of-type(1) {
+    /*
+    overflow scroll이 있는 상태라 sticky가 안먹음..
     position: sticky;
     top: -1px;
     z-index: 99;
     background: orchid;
+     */
+    background: #f4f6fa;
   }
 `;
 
 export const Row = styled.div`
   margin: 1em 0;
-  font-size: 14px;
+  font-size: 21px;
   line-height: 2em;
   width: ${rowWidth.width}px;
-  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   &:nth-child(1) {
+    left: 0;
+    width: ${rowWidth.firstWidth}px;
     position: -webkit-sticky;
     position: sticky;
-    left: 0;
-    background: gold;
   }
 `;

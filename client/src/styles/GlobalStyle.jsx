@@ -10,7 +10,7 @@ const GlobalStyles = createGlobalStyle`
   }
   body {
     font-family: 'Spoqa Han Sans Neo', sans-serif;
-    word-break: break-word;
+    word-break: keep-all;
   }
   a {
     text-decoration: none;
