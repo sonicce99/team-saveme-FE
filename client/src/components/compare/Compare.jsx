@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   CompareWrapper,
   Header,
@@ -21,20 +21,30 @@ import {
 } from "../../styles/CompareStyle";
 import theme from "../../styles/theme";
 import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { compareBtnClickList } from "../../recoil/atom";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
+import {
+  ALL,
+  compareBtnClickList,
+  DEL,
+  LIVE,
+  wishListAtom,
+  wishListAtomSelector,
+  wishListStatus,
+} from "../../recoil/atom";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useGetStarData } from "../../utils/Api";
 import Loading from "../Loading";
 import ModalStarList from "./ModalStarList";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { BiMemoryCard } from "react-icons/bi";
-import { Toast, Col } from "react-bootstrap";
-import { OverlayTrigger, Popover, Button } from "react-bootstrap";
+import { changeWishStatus } from "../../utils/WishList";
 
 export default function Compare() {
-  const { isLoading, data: starData } = useGetStarData();
+  const { data: starData } = useGetStarData();
   const [categoryAtom, setCategoryAtom] = useRecoilState(compareBtnClickList);
+  const setWishList = useSetRecoilState(wishListAtom);
+  const setWishStatus = useSetRecoilState(wishListStatus);
+  const wishList = useRecoilValue(wishListAtomSelector);
 
   const btnClick = useCallback((keyName, keyState, keyKoName) => {
     setCategoryAtom((oldCategory) => {
@@ -54,30 +64,35 @@ export default function Compare() {
     slide.classList.toggle("slideOut");
   }, []);
 
-  const modalShow = useCallback(() => {
-    const aside = document.querySelector("aside");
-    aside.classList.add("on");
+  const deleteWish = useCallback((id) => {
+    setWishList((oldWish) => {
+      return changeWishStatus(oldWish, id);
+    });
   }, []);
+
+  useEffect(() => {
+    if (starData) {
+      starData.data.map((data) => {
+        setWishList((oldList) => {
+          data.status = LIVE;
+          return [...oldList, data];
+        });
+      });
+      setWishStatus(LIVE);
+    }
+  }, [starData]);
 
   const [show, setShow] = useState(false);
 
   const handleClose = useCallback(() => {
     setShow(false);
+    setWishStatus(LIVE);
   }, []);
 
   const handleShow = useCallback(() => {
     setShow(true);
+    setWishStatus(ALL);
   }, []);
-
-  const popover = (
-    <Popover id="popover-basic">
-      <Popover.Header as="h3">Popover right</Popover.Header>
-      <Popover.Body>
-        And here's some <strong>amazing</strong> content. It's very engaging.
-        right?
-      </Popover.Body>
-    </Popover>
-  );
 
   return (
     <>
@@ -129,11 +144,9 @@ export default function Compare() {
       </Header>
 
       <CompareWrapper>
-        {isLoading ? (
-          <Loading />
-        ) : (
+        {wishList ? (
           <>
-            {starData.data.length === 0 ? (
+            {wishList.length === 0 ? (
               <Rows repeatNum={1} bottom={false}>
                 <Row right={false}>
                   <PlusBtnWrapper>
@@ -147,7 +160,7 @@ export default function Compare() {
               </Rows>
             ) : (
               <>
-                <Rows repeatNum={starData.data.length + 1} bottom={true}>
+                <Rows repeatNum={wishList.length + 1} bottom={true}>
                   <Row right={true}>
                     <PlusBtnWrapper>
                       <AiFillPlusCircle
@@ -157,39 +170,30 @@ export default function Compare() {
                     </PlusBtnWrapper>
                     <Text>공고 추가</Text>
                   </Row>
-                  {starData.data.map((data) => (
+                  {wishList.map((data) => (
                     <Row key={data.recruitmentId}>
                       <CompanyName color={theme.colors.colorBlue}>
                         {data.companyName}
                       </CompanyName>
                       <PositionTitle>{data.positionTitle}</PositionTitle>
-                      <DeleteBtn>
+                      <DeleteBtn onClick={() => deleteWish(data.recruitmentId)}>
                         <IoIosCloseCircleOutline />
                       </DeleteBtn>
                       <MemoBtn>
-                        <OverlayTrigger
-                          trigger="click"
-                          placement="right"
-                          overlay={popover}
-                        >
-                          {/* <BiMemoryCard /> */}
-                          <Button variant="light" size="sm">
-                            Memo
-                          </Button>
-                        </OverlayTrigger>
+                        <BiMemoryCard />
                       </MemoBtn>
                     </Row>
                   ))}
                 </Rows>
                 {categoryAtom.map((data) => (
                   <Rows
-                    repeatNum={starData.data.length + 1}
+                    repeatNum={wishList.length + 1}
                     key={data.keyName}
                     className={data.keyName}
                     bottom={true}
                   >
                     <Row right={true}>{data.keyKoName}</Row>
-                    {starData.data.map((subData) => (
+                    {wishList.map((subData) => (
                       <Row key={subData.recruitmentId}>
                         {subData[data.keyName]}
                       </Row>
@@ -199,6 +203,8 @@ export default function Compare() {
               </>
             )}
           </>
+        ) : (
+          <Loading />
         )}
       </CompareWrapper>
       <ModalStarList show={show} handleClose={handleClose} />

@@ -1,12 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { AiFillStar } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
-import StarIcon from "./StarIcon.jsx";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { wishJob } from "../utils/Api.js";
 
 const SearchResult = ({ page, setPage, data }) => {
   const handleScrollPage = (page) => {
     setPage((page) => page + 1);
+  };
+
+  const wish = async (job) => {
+    const res = await wishJob(job);
   };
 
   return (
@@ -24,7 +29,10 @@ const SearchResult = ({ page, setPage, data }) => {
                 <Div2>
                   <Div>
                     <Title>{job.positionTitle}</Title>
-                    <StarIcon job={job} wished={job.wished} />
+                    <AiFillStar
+                      className="StarIcon"
+                      onClick={() => wish(job)}
+                    />
                   </Div>
                   <Div>
                     <CompanyName>{job.companyName}</CompanyName>

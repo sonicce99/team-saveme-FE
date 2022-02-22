@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import styled from "styled-components";
 import { BrowserRouter } from "react-router-dom";
 import Main from "./components/Main";
 import Search from "./components/Search";

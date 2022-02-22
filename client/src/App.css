@@ -89,22 +89,3 @@
   color: #8691a5;
   margin-right: 153px;
 }
-
-.btn {
-  background-color: #ffffff;
-  color: #4876ef;
-}
-
-.btn-primary {
-  width: 310px;
-  height: 50px;
-  border-radius: 12px;
-  background: rgba(72, 118, 239, 0.15);
-  box-shadow: 0px 16px 24px rgba(112, 144, 176, 0.12);
-}
-
-.btn-primary:hover {
-  color: #ffffff;
-  background: rgba(72, 118, 239, 0.15);
-  box-shadow: 0px 16px 24px rgba(112, 144, 176, 0.12);
-}

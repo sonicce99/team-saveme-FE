@@ -1,7 +1,6 @@
 import { axiosInstance } from "./TokenApi";
 import { LocationNumber } from "../hooks/UseTransfer.js";
 import { useQuery } from "react-query";
-import axios from "axios";
 
 export const QUERY_KEYS = {
   all: ["saramin"],
@@ -21,14 +20,21 @@ export const searchResultApi = async (value, selected, page) => {
 
 /* 임시 */
 const fetchStarData = () => {
-  return axios
-    .get("/api/jobs/list?start=0&keywords=백엔&loc_cd=101000&count=5")
-    .then((value) => value.data);
+  return axiosInstance.get("/api/users/wishList").then((value) => value.data);
 };
 
 export const useGetStarData = () => {
   const { isLoading, data } = useQuery(
     QUERY_KEYS.list("star"),
+    () => fetchStarData(),
+    { refetchOnWindowFocus: false }
+  );
+  return { isLoading, data };
+};
+
+export const useGetStarAllData = () => {
+  const { isLoading, data } = useQuery(
+    QUERY_KEYS.list("starAll"),
     () => fetchStarData(),
     { refetchOnWindowFocus: false }
   );

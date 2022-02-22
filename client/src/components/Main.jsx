@@ -3,7 +3,6 @@ import styled from "styled-components";
 import logo from "../images/logo.png";
 import SearchBar from "./SearchBar";
 import SearchResult from "./SearchResult";
-import CompareButton from "./CompareButton";
 
 const Main = () => {
   const [data, setData] = useState([]);
@@ -17,7 +16,6 @@ const Main = () => {
         {data.length === 0 ? null : (
           <SearchResult page={page} setPage={setPage} data={data} />
         )}
-        <CompareButton />
       </Container>
     </>
   );
