@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { AiFillStar } from "react-icons/ai";
+import StarIcon from "./StarIcon.jsx";
 import { AiFillHeart } from "react-icons/ai";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { wishJob } from "../utils/Api.js";
@@ -29,10 +29,7 @@ const SearchResult = ({ page, setPage, data }) => {
                 <Div2>
                   <Div>
                     <Title>{job.positionTitle}</Title>
-                    <AiFillStar
-                      className="StarIcon"
-                      onClick={() => wish(job)}
-                    />
+                    <StarIcon job={job} wished={job.wished} />
                   </Div>
                   <Div>
                     <CompanyName>{job.companyName}</CompanyName>
