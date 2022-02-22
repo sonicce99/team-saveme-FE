@@ -5,10 +5,81 @@ const rowWidth = {
   gap: 27,
 };
 
-// 임시
 export const Header = styled.div`
-  height: 300px;
-  background: slategray;
+  position: relative;
+  height: 238px;
+  width: 1200px;
+  margin: 0 auto;
+`;
+
+export const Logo = styled.img`
+  display: block;
+  position: absolute;
+  top: 53px;
+  width: 125px;
+  height: 24px;
+`;
+
+export const BtnWrapper = styled.div`
+  position: absolute;
+  top: 117px;
+  width: 100%;
+`;
+
+export const FlexTitleBtn = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+`;
+
+export const Title = styled.span`
+  display: block;
+  font-weight: bold;
+  font-size: 24px;
+`;
+
+export const TitleBtn = styled.button`
+  color: ${(props) => props.color};
+  background: ${(props) => props.bgColor};
+  width: 175px;
+  height: 44px;
+  padding: 8px 54px;
+  border-radius: 10px;
+  margin-left: 12px;
+`;
+
+export const CompareHeaderWrapper = styled.div`
+  position: absolute;
+  top: 185px;
+  width: 100%;
+`;
+
+export const CompareFlex = styled.div`
+  display: flex;
+  margin-left: 10px;
+  justify-content: left;
+  align-items: center;
+
+  span {
+    display: block;
+    color: #646464;
+
+    &:after {
+      content: "▷";
+      margin-left: 9px;
+      color: ${(props) => props.color};
+    }
+  }
+`;
+
+export const CategoryBtn = styled.button`
+  height: 33px;
+  border: 1.5px solid ${(props) => props.color};
+  box-sizing: border-box;
+  border-radius: 6px;
+  margin: 0 4px;
+  padding: 0 10px;
+  color: ${(props) => props.color};
 `;
 
 export const CompareWrapper = styled.div`
