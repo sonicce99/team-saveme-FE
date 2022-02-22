@@ -13,7 +13,9 @@ import {
   CompareFlex,
   CategoryBtn,
   Text,
-  Div,
+  PlusBtnWrapper,
+  CompanyName,
+  PositionTitle,
 } from "../../styles/CompareStyle";
 import theme from "../../styles/theme";
 import { Link } from "react-router-dom";
@@ -21,9 +23,13 @@ import { useRecoilState } from "recoil";
 import { compareBtnClickList } from "../../recoil/atom";
 import ModalShow from "./ModalShow";
 import { AiFillPlusCircle } from "react-icons/ai";
+import { useGetStarData } from "../../utils/Api";
+import Loading from "../Loading";
 
 export default function Compare() {
+  const { isLoading, data: starData } = useGetStarData();
   const [categoryAtom, setCategoryAtom] = useRecoilState(compareBtnClickList);
+  console.log(starData);
 
   const btnClick = useCallback((keyName, keyState, keyKoName) => {
     setCategoryAtom((oldCategory) => {
@@ -38,20 +44,12 @@ export default function Compare() {
       const newCategory = [...oldCategory];
       newCategory.splice(targetIndex, 1, addCategory);
       return newCategory;
-      /*
-      return [
-        ...oldCategory.slice(0, targetIndex),
-        newCategory,
-        ...oldCategory.slice(targetIndex + 1),
-      ];
-      */
     });
-    const test = document.querySelector(".test");
-    test.classList.toggle("none");
+    const slide = document.querySelector(`.${keyName}`);
+    slide.classList.toggle("slideOut");
   }, []);
 
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -104,28 +102,42 @@ export default function Compare() {
         </CompareHeaderWrapper>
       </Header>
 
-      <CompareWrapper>
-        <Rows repeatNum={5 + 1} className="test">
-          <Div onClick={handleShow}>
-            <AiFillPlusCircle className="PlusIcon" />
-            <Text>공고 추가</Text>
-          </Div>
-          <Row>SBS아이앤엠 플랫폼서비스팀 UX/UI디자인 채용 [DMC/경력우대]</Row>
-          <Row>UX/UI 웹 서비스 기획 및 디자인 담당자 채용</Row>
-          <Row>웹페이지 및 앱 UX/UI 디자인</Row>
-          <Row>3</Row>
-          <Row>3</Row>
-        </Rows>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <CompareWrapper>
+          <Rows repeatNum={starData.data.length + 1}>
+            <Row>
+              <PlusBtnWrapper>
+                <AiFillPlusCircle className="PlusIcon" onClick={handleShow} />
+              </PlusBtnWrapper>
+              <Text>공고 추가</Text>
+            </Row>
+            {starData.data.map((data) => (
+              <Row key={data.recruitmentId}>
+                <CompanyName color={theme.colors.colorBlue}>
+                  {data.companyName}
+                </CompanyName>
+                <PositionTitle>{data.positionTitle}</PositionTitle>
+              </Row>
+            ))}
+          </Rows>
 
-        <Rows repeatNum={5 + 1}>
-          <Row>마감일</Row>
-          <Row>1</Row>
-          <Row>2</Row>
-          <Row>3</Row>
-          <Row>3</Row>
-          <Row>3</Row>
-        </Rows>
-      </CompareWrapper>
+          {categoryAtom.map((data) => (
+            <Rows
+              repeatNum={starData.data.length + 1}
+              key={data.keyName}
+              className={data.keyName}
+            >
+              <Row>{data.keyKoName}</Row>
+              {starData.data.map((subData) => (
+                <Row key={subData.recruitmentId}>{subData[data.keyName]}</Row>
+              ))}
+            </Rows>
+          ))}
+        </CompareWrapper>
+      )}
+
       <ModalShow show={show} handleClose={handleClose} />
     </>
   );

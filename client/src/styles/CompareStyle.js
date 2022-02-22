@@ -87,9 +87,8 @@ export const CategoryBtn = styled.button`
 `;
 
 export const CompareWrapper = styled.div`
-  margin: 0 auto;
+  margin: 20px auto;
   width: 1200px;
-  height: 200vh; // 임시
   border: 1.5px solid #d8dce4;
   border-radius: 12px;
   overflow-x: auto;
@@ -109,6 +108,7 @@ export const Rows = styled.div`
 
   max-height: 500px;
   background: #fff;
+  border-bottom: 0.1px solid lightgray;
 
   &:nth-of-type(1) {
     /*
@@ -119,12 +119,25 @@ export const Rows = styled.div`
     background: orchid;
      */
   }
-  &.none {
+  &.slideOut {
     visibility: hidden;
     max-height: 0;
     opacity: 0;
   }
   transition: all linear 0.3s;
+`;
+
+export const CompanyName = styled.span`
+  display: block;
+  font-size: 18px;
+  color: ${(props) => props.color};
+`;
+
+export const PositionTitle = styled.span`
+  display: block;
+  font-size: 21px;
+  line-height: 36px;
+  color: #333;
 `;
 
 export const Row = styled.div`
@@ -133,6 +146,7 @@ export const Row = styled.div`
   line-height: 2em;
   width: ${rowWidth.width}px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 
@@ -146,8 +160,8 @@ export const Row = styled.div`
   }
 `;
 
-export const Div = styled.div`
-  border: 1px solid black;
+export const PlusBtnWrapper = styled.div`
+  width: 100%;
 `;
 
 export const Text = styled.p`
