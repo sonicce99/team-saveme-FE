@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 import SearchBar from "./SearchBar";
+import SearchResult from "./SearchResult";
 
 const Main = () => {
+  const [data, setData] = useState([]);
   return (
     <>
       <Image src={logo} alt="logoImage" />
       <Container>
-        <SearchBar />
+        <SearchBar setData={setData} />
+        {data.length === 0 ? null : <SearchResult data={data} />}
       </Container>
     </>
   );

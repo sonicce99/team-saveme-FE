@@ -36,3 +36,12 @@ export const useGetStarData = () => {
   );
   return { isLoading, data };
 };
+
+// export const useGetSearchData = (value, selected) => {
+//   const { isLoading, data } = useQuery(
+//     QUERY_KEYS.list(value,selected),
+//     () => searchResultApi(value, selected),
+//     { refetchOnWindowFocus: false }
+//   );
+//   return { isLoading, data};
+// }

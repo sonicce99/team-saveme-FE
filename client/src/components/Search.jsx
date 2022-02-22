@@ -7,11 +7,11 @@ import SearchResult from "./SearchResult";
 const Search = () => {
   return (
     <Container>
-      <Div>
+      {/* <Div>
         <Image src={logo} />
         <SearchBar />
       </Div>
-      <SearchResult />
+      <SearchResult /> */}
     </Container>
   );
 };

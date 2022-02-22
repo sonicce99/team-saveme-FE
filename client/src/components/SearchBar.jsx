@@ -6,7 +6,6 @@ import {
   Dropdown,
   DropdownButton,
 } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css";
 import styled from "styled-components";
@@ -15,7 +14,7 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BsCheckCircle } from "react-icons/bs";
 import { searchResultApi } from "../utils/Api.js";
 
-const SearchBar = () => {
+const SearchBar = ({ setData }) => {
   const local1 = ["서울", "인천", "대구", "대전", "세종", "경남"];
   const local2 = ["경기", "부산", "광주", "울산", "강원", "경북"];
 
@@ -40,10 +39,8 @@ const SearchBar = () => {
 
   const getResult = async () => {
     const res = await searchResultApi(value, selected);
-    console.log(res);
+    setData(res);
   };
-
-  const navigate = useNavigate();
 
   return (
     <>
@@ -130,7 +127,6 @@ const SearchBar = () => {
               getResult();
               handleFalse();
               handleValueNull();
-              navigate("/search");
             }}
           >
             검색

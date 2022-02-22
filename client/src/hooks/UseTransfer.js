@@ -1,5 +1,5 @@
 export const LocationNumber = (selected) => {
-  if (selected.length === 0) return;
+  if (selected.length === 0) return selected;
   else {
     const array = [];
 
