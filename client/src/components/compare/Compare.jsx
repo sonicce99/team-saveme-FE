@@ -74,7 +74,9 @@ export default function Compare() {
     if (starData) {
       starData.data.map((data) => {
         setWishList((oldList) => {
-          data.status = LIVE;
+          if(!data.status){
+            data.status = LIVE;
+          }
           return [...oldList, data];
         });
       });
